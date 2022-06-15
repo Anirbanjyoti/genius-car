@@ -1,0 +1,14 @@
+.nav {
+    justify-content: center;
+    background: aquamarine;
+    padding: 20px;
+}
+.nav a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin-left: 20px;
+    background-color: black;
+    color: #fff;
+}
