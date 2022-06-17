@@ -1,20 +1,16 @@
-import React from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import './Login.css'
+import React from "react";
+import { Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const Login = () => {
-    const navigate = useNavigate();
-    const handleRegister=()=>{
-        navigate('/register')
-    }
-    return (
-        <div>
+const Register = () => {
+  return (
+    <div>
         <div className="container log-container">
         <div className="row">
-            <h1>This is Login Page</h1>
-            <Form>
+          <h1>This is Registration Page</h1>
+          
+          <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" />
@@ -27,15 +23,27 @@ const Login = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Confirm Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
       <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>
-    <p>New to Genius Car? <button onClick={handleRegister}>Please Register!</button></p>
+
+          <p>
+            If you have account?
+            <Link to='/login'>Please Login!</Link>
+          </p>
         </div>
         </div>
         </div>
-    );
+  );
 };
 
-export default Login;
+export default Register;
