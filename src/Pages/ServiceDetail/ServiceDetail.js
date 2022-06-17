@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
+// useParams
 const ServiceDetail = () => {
     const {serviceId} = useParams();
     return (
