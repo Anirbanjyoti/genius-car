@@ -4,22 +4,30 @@ import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+
+    const handleCreateUser=event=>{
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        console.log(name, email);
+        
+    }
   return (
     <div>
       <div className="container log-container">
         <div className="row">
           <h1>This is Registration Page</h1>
 
-          <Form>
+          <Form onSubmit={handleCreateUser}> 
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>User Name</Form.Label>
-              <Form.Control type="Text" placeholder="Enter Your Name" />
+              <Form.Control type="Text" name="name" placeholder="Enter Your Name" />
               <Form.Text className="text-muted">Enter Your Name.</Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control name="email" type="email" placeholder="Enter email" />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -27,12 +35,12 @@ const Register = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control name="password" type="password" placeholder="Password" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Confirm Password" />
+              <Form.Control name="confirmPassword" type="password" placeholder="Confirm Password" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Check me out" />
