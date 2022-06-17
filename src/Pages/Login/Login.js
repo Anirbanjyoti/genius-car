@@ -27,7 +27,7 @@ const Login = () => {
     navigate("/register");
   };
   if(user){
-    navigate('/home');
+    navigate('/checkout');
   }
   return (
     <div>
