@@ -1,16 +1,24 @@
 import Button from "react-bootstrap/Button";
 import React from "react";
 import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import auth from '../../firebase.init';
+import {useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
 
 const Register = () => {
+    const navigate =useNavigate();
+    const [createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword(auth);
 
+    if(user){
+        navigate('/home')
+    }
     const handleCreateUser=event=>{
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
-        console.log(name, email);
-        
+        const password = event.target.password.value;
+        createUserWithEmailAndPassword(email, password) 
     }
   return (
     <div>
@@ -46,7 +54,7 @@ const Register = () => {
               <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Sign Up
             </Button>
           </Form>
 

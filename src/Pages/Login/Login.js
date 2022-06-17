@@ -1,10 +1,16 @@
 import React, { useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 import "./Login.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [
+    signInWithEmailAndPassword, user
+  ] = useSignInWithEmailAndPassword(auth);
 // useRef
     const emailRef = useRef(' '); 
     const passwordRef= useRef(' '); 
@@ -13,14 +19,16 @@ const Login = () => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        console.log(email, password);
+        signInWithEmailAndPassword(email, password)
         
     }
 
-    const navigate = useNavigate();
   const handleRegister = () => {
     navigate("/register");
   };
+  if(user){
+    navigate('/home');
+  }
   return (
     <div>
       <div className="container log-container">
@@ -40,7 +48,7 @@ const Login = () => {
               <Form.Control ref={passwordRef} type="password" placeholder="Password" />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Log in
             </Button>
           </Form>
           <p>
