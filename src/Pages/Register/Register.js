@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/Button";
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import auth from '../../firebase.init';
@@ -10,7 +10,7 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 const Register = () => {
     const navigate =useNavigate();
     const [createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword(auth);
-
+        const [error, setError] = useState(" ");
     if(user){
         navigate('/home')
     }
@@ -18,7 +18,22 @@ const Register = () => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
-        createUserWithEmailAndPassword(email, password) 
+        const confirmPassword = event.target.confirmPassword.value;
+        const agree = event.target.terms.checked;
+        if(agree){
+          createUserWithEmailAndPassword(email, password) 
+        }else{
+          setError('Please checked the terms and condition!')
+        }
+        if (password !== confirmPassword) {
+          setError("Your Password and Confirm Password does not match !");
+          return;
+        }
+        if (password.length < 6) {
+          setError("Password must be six character or more !");
+          return;
+        }
+
     }
   return (
     <div>
@@ -51,9 +66,10 @@ const Register = () => {
               <Form.Control name="confirmPassword" type="password" placeholder="Confirm Password" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
+              <Form.Check name='terms' type="checkbox" label="Accept Genius Car Terms and Condition" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+           <p className="text-danger">{error}</p>
+           <Button variant="primary" type="submit">
               Sign Up
             </Button>
           </Form>

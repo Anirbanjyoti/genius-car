@@ -2,17 +2,17 @@ import React, { useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import "./Login.css";
 
-
 const Login = () => {
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user] =
+  const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  let errorElement;
   // useRef
   const emailRef = useRef(" ");
   const passwordRef = useRef(" ");
@@ -27,6 +27,14 @@ const Login = () => {
   const handleRegister = () => {
     navigate("/register");
   };
+  const resetPassword = async () => {
+    const email = emailRef.current.value;
+    await sendPasswordResetEmail(email);
+          alert('Sent email');
+  };
+  if (error) {
+    errorElement = <p className="text-danger">Error: {error?.message}</p>;
+  }
   // Redirection
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -60,14 +68,23 @@ const Login = () => {
                 placeholder="Password"
               />
             </Form.Group>
+            {loading && <p>Loading....</p>}
+            {/* Firebase Error Message */}
+            {/* <p style={{ color: "red" }}>{error?.message}</p> */}
+            <p style={{ color: "red" }}>{errorElement}</p>
             <Button variant="primary" type="submit">
               Log in
             </Button>
           </Form>
           <p>
-            New to Genius Car?{" "}
-            <button onClick={handleRegister}>Please Register!</button>
+            New to Genius Car?
+            <Link className="text-decoration-none text-danger"  to='/register' onClick={handleRegister}>Please Register!</Link>
           </p>
+          <p>
+            Forgot Password?
+            <Link className="text-decoration-none text-danger" to='/register' onClick={resetPassword}>Reset Password</Link>
+          </p>
+
           <SocialLogin></SocialLogin>
         </div>
       </div>
