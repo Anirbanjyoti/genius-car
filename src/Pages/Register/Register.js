@@ -11,6 +11,7 @@ const Register = () => {
     const navigate =useNavigate();
     const [createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword(auth);
         const [error, setError] = useState(" ");
+        const [agree, setAgree] =useState(false);
     if(user){
         navigate('/home')
     }
@@ -19,7 +20,8 @@ const Register = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.confirmPassword.value;
-        const agree = event.target.terms.checked;
+        // const agree = event.target.terms.checked;
+        
         if(agree){
           createUserWithEmailAndPassword(email, password) 
         }else{
@@ -69,7 +71,7 @@ const Register = () => {
               <Form.Check name='terms' type="checkbox" label="Accept Genius Car Terms and Condition" />
             </Form.Group>
            <p className="text-danger">{error}</p>
-           <Button variant="primary" type="submit">
+           <Button onClick={()=>setAgree(!agree)} variant="primary" type="submit">
               Sign Up
             </Button>
           </Form>
