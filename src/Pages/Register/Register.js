@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import auth from '../../firebase.init';
 import {useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 
 const Register = () => {
@@ -15,7 +16,6 @@ const Register = () => {
     }
     const handleCreateUser=event=>{
         event.preventDefault();
-        const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
         createUserWithEmailAndPassword(email, password) 
@@ -62,6 +62,7 @@ const Register = () => {
             If you have account?
             <Link to="/login">Please Login!</Link>
           </p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

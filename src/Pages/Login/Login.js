@@ -1,15 +1,18 @@
 import React, { useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import SocialLogin from "../SocialLogin/SocialLogin";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import "./Login.css";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const [signInWithEmailAndPassword, user] =
     useSignInWithEmailAndPassword(auth);
+
   // useRef
   const emailRef = useRef(" ");
   const passwordRef = useRef(" ");
@@ -20,7 +23,7 @@ const Login = () => {
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
   };
-// 
+  //
   const handleRegister = () => {
     navigate("/register");
   };
@@ -65,6 +68,7 @@ const Login = () => {
             New to Genius Car?{" "}
             <button onClick={handleRegister}>Please Register!</button>
           </p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>
