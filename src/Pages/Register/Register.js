@@ -83,26 +83,26 @@ const Register = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            {/* <input onClick={() => setAgree(!agree)} type="checkbox" name="terms" id="terms" />
+              {/* <input onClick={() => setAgree(!agree)} type="checkbox" name="terms" id="terms" />
             <label  className={agree ? 'ps-2 text-primary' : 'ps-2 text-danger'} htmlFor="terms" type='checkbox'>Accept Genius Car Terms and Condition</label> */}
               <Form.Check
-              onClick={() => setAgree(!agree)}
-               name="terms"
+                onClick={() => setAgree(!agree)}
+                name="terms"
                 type="checkbox"
                 label="Accept Genius Car Terms and Condition"
                 // Conditional css class
                 // method one
                 // className={agree ? 'text-primary' : 'text-danger'}
                 // Method two
-                className={`${agree ? 'text-primary' : 'text-danger'}`}
+                className={`${agree ? "text-primary" : "text-danger"}`}
               />
             </Form.Group>
             <p className="text-danger">{error}</p>
             <Button
               variant="primary"
               type="submit"
-             className="btn-lg mx-auto w-100 mb-3 d-block"
-             disabled={!agree}
+              className="btn-lg mx-auto w-100 mb-3 d-block"
+              disabled={!agree}
             >
               Sign Up
             </Button>
