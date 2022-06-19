@@ -2,21 +2,29 @@ import React, { useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import "./Login.css";
+import Loading from "../Loading/Loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
   let errorElement;
   // useRef
   const emailRef = useRef(" ");
   const passwordRef = useRef(" ");
+  // Toast Message
 
+  //
   const handleUserLogin = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
@@ -29,8 +37,12 @@ const Login = () => {
   };
   const resetPassword = async () => {
     const email = emailRef.current.value;
-    await sendPasswordResetEmail(email);
-          alert('Sent email');
+    if(email){
+      await sendPasswordResetEmail(email);
+      toast("Sent email Please Check Inbox!");
+    }else{
+      toast('Please Enter Email!')
+    }
   };
   if (error) {
     errorElement = <p className="text-danger">Error: {error?.message}</p>;
@@ -41,7 +53,10 @@ const Login = () => {
   if (user) {
     navigate(from, { replace: true });
   }
-
+  // Show loading
+  if (loading || sending) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <div className="container log-container">
@@ -68,24 +83,40 @@ const Login = () => {
                 placeholder="Password"
               />
             </Form.Group>
-            {loading && <p>Loading....</p>}
+            {/* {loading && <p>Loading....</p>} */}
             {/* Firebase Error Message */}
             {/* <p style={{ color: "red" }}>{error?.message}</p> */}
             <p style={{ color: "red" }}>{errorElement}</p>
-            <Button className="w-100 mx-auto d-block mb-2" variant="primary" type="submit">
+            <Button
+              className="w-100 mx-auto d-block mb-2"
+              variant="primary"
+              type="submit"
+            >
               Log in
             </Button>
           </Form>
           <p>
             New to Genius Car?
-            <Link className="ps-2 text-decoration-none text-danger"  to='/register' onClick={handleRegister}>Please Register!</Link>
+            <Link
+              className="ps-2 text-decoration-none text-danger"
+              to="/register"
+              onClick={handleRegister}
+            >
+              Please Register!
+            </Link>
           </p>
           <p>
             Forgot Password?
-            <Link className="ps-2 text-decoration-none text-danger" to='/register' onClick={resetPassword}>Reset Password!</Link>
+            <button
+              className="btn btn-link ps-2 text-decoration-none text-danger"
+              onClick={resetPassword}
+            >
+              Reset Password!
+            </button>
           </p>
 
           <SocialLogin></SocialLogin>
+          <ToastContainer />
         </div>
       </div>
     </div>

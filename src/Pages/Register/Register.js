@@ -8,10 +8,11 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import Loading from "../Loading/Loading";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [createUserWithEmailAndPassword, user] =
+  const [createUserWithEmailAndPassword, user, loading] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateEerror] = useUpdateProfile(auth);
   const [error, setError] = useState(" ");
@@ -43,6 +44,9 @@ const Register = () => {
       return;
     }
   };
+  if(loading || updating){
+    return <Loading></Loading>
+  }
   return (
     <div>
       <div className="container log-container">
