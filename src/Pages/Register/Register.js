@@ -3,28 +3,35 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
   const navigate = useNavigate();
   const [createUserWithEmailAndPassword, user] =
-    useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const [updateProfile, updating, updateEerror] = useUpdateProfile(auth);
   const [error, setError] = useState(" ");
   const [agree, setAgree] = useState(false);
   if (user) {
-    navigate("/home");
+    console.log(`user:`, user);
   }
-  const handleCreateUser = (event) => {
+  const handleCreateUser = async (event) => {
     event.preventDefault();
+    const displayName = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
     const confirmPassword = event.target.confirmPassword.value;
     // const agree = event.target.terms.checked;
 
-    if (agree) {
-      createUserWithEmailAndPassword(email, password);
-    } else {
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName });
+    navigate("/home");
+
+    if (!agree) {
       setError("Please checked the terms and condition!");
     }
     if (password !== confirmPassword) {
@@ -45,14 +52,9 @@ const Register = () => {
           <Form onSubmit={handleCreateUser}>
             <Form.Group className="mb-3" controlId="formBasicName">
               {/* <Form.Label>User Name</Form.Label> */}
-              <Form.Control
-                type="Text"
-                name="name"
-                placeholder="Your Name"
-              />
+              <Form.Control type="Text" name="name" placeholder="Your Name" />
               {/* <Form.Text className="text-muted">Enter Your Name.</Form.Text> */}
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicEmail">
               {/* <Form.Label>Email address</Form.Label> */}
               <Form.Control
@@ -110,7 +112,9 @@ const Register = () => {
 
           <p>
             Already have an account?
-            <Link  className="ps-2 text-decoration-none" to="/login">Please Login!</Link>
+            <Link className="ps-2 text-decoration-none" to="/login">
+              Please Login!
+            </Link>
           </p>
           <SocialLogin></SocialLogin>
         </div>
