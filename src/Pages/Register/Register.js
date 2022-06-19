@@ -40,33 +40,33 @@ const Register = () => {
     <div>
       <div className="container log-container">
         <div className="row">
-          <h1>This is Registration Page</h1>
+          <h1>Please Registration !</h1>
 
           <Form onSubmit={handleCreateUser}>
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>User Name</Form.Label>
+              {/* <Form.Label>User Name</Form.Label> */}
               <Form.Control
                 type="Text"
                 name="name"
-                placeholder="Enter Your Name"
+                placeholder="Your Name"
               />
-              <Form.Text className="text-muted">Enter Your Name.</Form.Text>
+              {/* <Form.Text className="text-muted">Enter Your Name.</Form.Text> */}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              {/* <Form.Label>Email address</Form.Label> */}
               <Form.Control
                 name="email"
                 type="email"
-                placeholder="Enter email"
+                placeholder="Email Address"
               />
-              <Form.Text className="text-muted">
+              {/* <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
-              </Form.Text>
+              </Form.Text> */}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              {/* <Form.Label>Password</Form.Label> */}
               <Form.Control
                 name="password"
                 type="password"
@@ -75,7 +75,7 @@ const Register = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-              <Form.Label>Password</Form.Label>
+              {/* <Form.Label>Password</Form.Label> */}
               <Form.Control
                 name="confirmPassword"
                 type="password"
@@ -109,8 +109,8 @@ const Register = () => {
           </Form>
 
           <p>
-            If you have account?
-            <Link to="/login">Please Login!</Link>
+            Already have an account?
+            <Link  className="ps-2 text-decoration-none" to="/login">Please Login!</Link>
           </p>
           <SocialLogin></SocialLogin>
         </div>

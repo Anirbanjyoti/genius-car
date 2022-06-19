@@ -46,22 +46,22 @@ const Login = () => {
     <div>
       <div className="container log-container">
         <div className="row">
-          <h1>This is Login Page</h1>
+          <h1>Please Login !</h1>
           <Form onSubmit={handleUserLogin}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              {/* <Form.Label>Email address</Form.Label> */}
               <Form.Control
                 ref={emailRef}
                 type="email"
                 placeholder="Enter email"
               />
-              <Form.Text className="text-muted">
+              {/* <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
-              </Form.Text>
+              </Form.Text> */}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              {/* <Form.Label>Password</Form.Label> */}
               <Form.Control
                 ref={passwordRef}
                 type="password"
@@ -72,17 +72,17 @@ const Login = () => {
             {/* Firebase Error Message */}
             {/* <p style={{ color: "red" }}>{error?.message}</p> */}
             <p style={{ color: "red" }}>{errorElement}</p>
-            <Button variant="primary" type="submit">
+            <Button className="w-100 mx-auto d-block mb-2" variant="primary" type="submit">
               Log in
             </Button>
           </Form>
           <p>
             New to Genius Car?
-            <Link className="text-decoration-none text-danger"  to='/register' onClick={handleRegister}>Please Register!</Link>
+            <Link className="ps-2 text-decoration-none text-danger"  to='/register' onClick={handleRegister}>Please Register!</Link>
           </p>
           <p>
             Forgot Password?
-            <Link className="text-decoration-none text-danger" to='/register' onClick={resetPassword}>Reset Password</Link>
+            <Link className="ps-2 text-decoration-none text-danger" to='/register' onClick={resetPassword}>Reset Password!</Link>
           </p>
 
           <SocialLogin></SocialLogin>
