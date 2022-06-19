@@ -2,57 +2,64 @@ import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import auth from '../../firebase.init';
-import {useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from "../../firebase.init";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 
-
 const Register = () => {
-    const navigate =useNavigate();
-    const [createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword(auth);
-        const [error, setError] = useState(" ");
-        const [agree, setAgree] =useState(false);
-    if(user){
-        navigate('/home')
-    }
-    const handleCreateUser=event=>{
-        event.preventDefault();
-        const email = event.target.email.value;
-        const password = event.target.password.value;
-        const confirmPassword = event.target.confirmPassword.value;
-        // const agree = event.target.terms.checked;
-        
-        if(agree){
-          createUserWithEmailAndPassword(email, password) 
-        }else{
-          setError('Please checked the terms and condition!')
-        }
-        if (password !== confirmPassword) {
-          setError("Your Password and Confirm Password does not match !");
-          return;
-        }
-        if (password.length < 6) {
-          setError("Password must be six character or more !");
-          return;
-        }
+  const navigate = useNavigate();
+  const [createUserWithEmailAndPassword, user] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [error, setError] = useState(" ");
+  const [agree, setAgree] = useState(false);
+  if (user) {
+    navigate("/home");
+  }
+  const handleCreateUser = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const confirmPassword = event.target.confirmPassword.value;
+    // const agree = event.target.terms.checked;
 
+    if (agree) {
+      createUserWithEmailAndPassword(email, password);
+    } else {
+      setError("Please checked the terms and condition!");
     }
+    if (password !== confirmPassword) {
+      setError("Your Password and Confirm Password does not match !");
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password must be six character or more !");
+      return;
+    }
+  };
   return (
     <div>
       <div className="container log-container">
         <div className="row">
           <h1>This is Registration Page</h1>
 
-          <Form onSubmit={handleCreateUser}> 
+          <Form onSubmit={handleCreateUser}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>User Name</Form.Label>
-              <Form.Control type="Text" name="name" placeholder="Enter Your Name" />
+              <Form.Control
+                type="Text"
+                name="name"
+                placeholder="Enter Your Name"
+              />
               <Form.Text className="text-muted">Enter Your Name.</Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control name="email" type="email" placeholder="Enter email" />
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -60,18 +67,43 @@ const Register = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control name="password" type="password" placeholder="Password" />
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control name="confirmPassword" type="password" placeholder="Confirm Password" />
+              <Form.Control
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check name='terms' type="checkbox" label="Accept Genius Car Terms and Condition" />
+            {/* <input onClick={() => setAgree(!agree)} type="checkbox" name="terms" id="terms" />
+            <label  className={agree ? 'ps-2 text-primary' : 'ps-2 text-danger'} htmlFor="terms" type='checkbox'>Accept Genius Car Terms and Condition</label> */}
+              <Form.Check
+              onClick={() => setAgree(!agree)}
+               name="terms"
+                type="checkbox"
+                label="Accept Genius Car Terms and Condition"
+                // Conditional css class
+                // method one
+                // className={agree ? 'text-primary' : 'text-danger'}
+                // Method two
+                className={`${agree ? 'text-primary' : 'text-danger'}`}
+              />
             </Form.Group>
-           <p className="text-danger">{error}</p>
-           <Button onClick={()=>setAgree(!agree)} variant="primary" type="submit">
+            <p className="text-danger">{error}</p>
+            <Button
+              variant="primary"
+              type="submit"
+             className="btn-lg mx-auto w-100 mb-3 d-block"
+             disabled={!agree}
+            >
               Sign Up
             </Button>
           </Form>
