@@ -6,7 +6,7 @@ import Header from "./Pages/Shared/Header/Header";
 import Footer from "./Pages/Shared/Footer/Footer";
 import Home from "./Pages/Home/Home/Home";
 import ServiceDetail from "./Pages/ServiceDetail/ServiceDetail";
-import NotFound from "./Pages/NotFound/NotFound";
+import NotFound from "./Pages/Shared/NotFound/NotFound";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Checkout from "./Pages/Checkout/Checkout";

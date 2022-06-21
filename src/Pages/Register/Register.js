@@ -8,7 +8,7 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import Loading from "../Loading/Loading";
+import Loading from "../Shared/Loading/Loading";
 
 const Register = () => {
   const navigate = useNavigate();
