@@ -12,6 +12,7 @@ import "./Login.css";
 import Loading from "../Shared/Loading/Loading";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from "../Shared/PageTitle/PageTitle";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ const Login = () => {
   }
   return (
     <div>
+    <PageTitle title='Login'></PageTitle>
       <div className="container log-container">
         <div className="row">
           <h1>Please Login !</h1>
