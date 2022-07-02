@@ -17,6 +17,7 @@ const AddService = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        this.props.history.push('/home');
       });
   };
   return (

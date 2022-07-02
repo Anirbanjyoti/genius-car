@@ -12,7 +12,7 @@ import { signOut } from "firebase/auth";
 
 const Header = () => {
   const [user] = useAuthState(auth);
-  
+
   const logout = () => {
     signOut(auth);
   };
@@ -50,6 +50,18 @@ const Header = () => {
               <Nav.Link as={Link} to="about">
                 About
               </Nav.Link>
+              {user && (
+                <>
+                  <Nav.Link as={Link} to="addservice">
+                    {" "}
+                    Add
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="manage">
+                    {" "}
+                    Manage{" "}
+                  </Nav.Link>
+                </>
+              )}
               {user ? (
                 <button onClick={logout}>Log Out</button>
               ) : (
