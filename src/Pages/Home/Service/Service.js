@@ -9,11 +9,11 @@ const Service = ({service}) => {
         navigate(`/service/${id}`)
     }
     return (
-        <div className='service'>
+        <div className='service card-body'>
             <img src={img} alt='img'></img>
-            <h4>Service Name: {name}</h4>
+            <h4 className="card-title">Service Name: {name}</h4>
             <h5>Price: {price}</h5>
-            <p>Price: {description}</p>
+            <p className='card-text'>Description: {description}</p>
             <button onClick={()=>handleServiceDetail(_id)} className='btn  btn-primary'>{name}</button>
         </div>
     );

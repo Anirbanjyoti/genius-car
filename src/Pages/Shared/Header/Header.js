@@ -62,6 +62,7 @@ const Header = () => {
                   </Nav.Link>
                 </>
               )}
+              
               {user ? (
                 <button onClick={logout}>Log Out</button>
               ) : (
