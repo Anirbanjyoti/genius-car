@@ -9,16 +9,18 @@ import {
 } from "react-firebase-hooks/auth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Loading from "../Shared/Loading/Loading";
+import useToken from "../../hooks/useToken";
 
 const Register = () => {
   const navigate = useNavigate();
   const [createUserWithEmailAndPassword, user, loading] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateEerror] = useUpdateProfile(auth);
+  const [token] = useToken(user);
   const [error, setError] = useState(" ");
   const [agree, setAgree] = useState(false);
-  if (user) {
-    console.log(`user:`, user);
+  if (token) {
+    navigate("/home");
   }
   const handleCreateUser = async (event) => {
     event.preventDefault();
@@ -30,7 +32,7 @@ const Register = () => {
 
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName });
-    navigate("/home");
+    // navigate("/home");
 
     if (!agree) {
       setError("Please checked the terms and condition!");

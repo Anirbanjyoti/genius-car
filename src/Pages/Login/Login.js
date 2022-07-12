@@ -10,16 +10,22 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import "./Login.css";
 import Loading from "../Shared/Loading/Loading";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
-
+import axios from "axios";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [
+    signInWithEmailAndPassword, 
+    user, 
+    loading, 
+    error] =
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  const [token] = useToken(user);
   let errorElement;
   // useRef
   const emailRef = useRef(" ");
@@ -27,11 +33,18 @@ const Login = () => {
   // Toast Message
 
   //
-  const handleUserLogin = (event) => {
+  const handleUserLogin = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+    const { data } = await axios.post(
+      "https://sleepy-harbor-68407.herokuapp.com/login",
+      { email }
+    );
+    localStorage.setItem("accessToken", data.accessToken);
+    console.log(data);
+    // navigate(from, { replace: true });
   };
   //
   const handleRegister = () => {
@@ -39,20 +52,20 @@ const Login = () => {
   };
   const resetPassword = async () => {
     const email = emailRef.current.value;
-    if(email){
+    if (email) {
       await sendPasswordResetEmail(email);
       toast("Sent email Please Check Inbox!");
-    }else{
-      toast('Please Enter Email!')
+    } else {
+      toast("Please Enter Email!");
     }
   };
   if (error) {
     errorElement = <p className="text-danger">Error: {error?.message}</p>;
   }
-  // Redirection
+  // Redirection page
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
-  if (user) {
+  if (token) {
     navigate(from, { replace: true });
   }
   // Show loading
@@ -61,7 +74,7 @@ const Login = () => {
   }
   return (
     <div>
-    <PageTitle title='Login'></PageTitle>
+      <PageTitle title="Login"></PageTitle>
       <div className="container log-container">
         <div className="row">
           <h1>Please Login !</h1>

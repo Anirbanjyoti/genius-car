@@ -8,7 +8,7 @@ const ManageService = () => {
     const handleDelete = id =>{
         const proceed = window.confirm('Are You Sure ?');
         if(proceed){
-                const url = `http://localhost:5000/service/${id}`;
+                const url = `https://sleepy-harbor-68407.herokuapp.com/service/${id}`;
                 console.log(url);
                 fetch(url, {
                     method: 'DELETE'

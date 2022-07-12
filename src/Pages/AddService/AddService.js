@@ -1,12 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 import "./AddService.css";
 
 const AddService = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, acknowledged } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    const url = `http://localhost:5000/service`;
+    const url = `https://sleepy-harbor-68407.herokuapp.com/service`;
     fetch(url, {
       method: "POST",
       headers: {
@@ -17,7 +18,9 @@ const AddService = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        this.props.history.push('/home');
+        if(acknowledged){
+          Navigate('/home');
+        }
       });
   };
   return (
